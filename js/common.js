@@ -27,13 +27,15 @@ function FetchToday(){
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
           var data = csvJSON(request.responseText)
-          data=data[1]
+          data=data[data.length - 1]
           console.log(data);
-          document.getElementById('time').innerHTML="TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b>"
+
           if(data['As Per Schedule ?']!="Yes"){
+            document.getElementById('time').innerHTML="TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b>"
             setTimetable(data['Period - 1'],data['Period - 2'],data['Period - 3'],data['Period - 4'])
             FetchLinks()
           }else{
+            document.getElementById('time').innerHTML="<span class='w3-button w3-border'><b class='w3-text-red '>Special </b>TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b></span>"
             FetchTimeTable(data['Day'])
 
           }
@@ -44,6 +46,7 @@ function FetchToday(){
 
 var TT=[]
 var Links={}
+var Colors={}
 var linkFetch=false;
 
 function SetLinks() {
@@ -51,6 +54,16 @@ function SetLinks() {
   console.log(Links);
   for (var sub of TT) {
     document.getElementById('l'+i).href=Links[sub];
+    i+=1;
+  }
+  closeNav()
+}
+
+function SetColors() {
+  var i=1
+  console.log(Colors);
+  for (var sub of TT) {
+    document.getElementById('c'+i).style.background=Colors[sub];
     i+=1;
   }
   closeNav()
@@ -65,7 +78,9 @@ function FetchLinks(){
                   var jsonn = csvJSON(request.responseText)
                   console.log(jsonn);
                   Links=jsonn[0];
+                  Colors=jsonn[1];
                   SetLinks()
+                  SetColors()
           }
       }
 }
