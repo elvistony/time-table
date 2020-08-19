@@ -29,7 +29,7 @@ function getTodayName() {
 
 function FetchToday(){
   var request = new XMLHttpRequest();
-    request.open('GET', "https://cors-anywhere.herokuapp.com/docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?output=csv", true);
+    request.open('GET', "https://docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?output=csv", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -42,7 +42,7 @@ function FetchToday(){
             setTimetable(data['Period - 1'],data['Period - 2'],data['Period - 3'],data['Period - 4'])
             FetchLinks()
           }else{
-            document.getElementById('time').innerHTML="<span class='w3-button w3-border'>TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b></span>"
+            document.getElementById('time').innerHTML="<span class='w3-button w3-border'><b class='w3-text-red '>Regular </b>TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b></span>"
             FetchTimeTable(getTodayName())
           }
 
@@ -76,7 +76,7 @@ function SetColors() {
 
 function FetchLinks(){
     var request = new XMLHttpRequest();
-    request.open('GET',"https://cors-anywhere.herokuapp.com/docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?gid=546940971&single=true&output=csv", true);
+    request.open('GET',"https://docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?gid=546940971&single=true&output=csv", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -93,7 +93,7 @@ function FetchLinks(){
 
 function FetchTimeTable(day){
   var request = new XMLHttpRequest();
-    request.open('GET',"https://cors-anywhere.herokuapp.com/docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?gid=1414031351&single=true&output=csv", true);
+    request.open('GET',"https://docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?gid=1414031351&single=true&output=csv", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
