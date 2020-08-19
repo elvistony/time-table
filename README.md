@@ -14,5 +14,5 @@ A simple Javascript Web-App that shows you today's College TimeTable along with 
 - Renders Each Subject with unique Colors and its Links
 
 ### Demo
-- [Control Panel - Google Sheet](https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY edit?usp=sharing "A Google Sheet")
+- [Control Panel - Google Sheet](https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoYedit?usp=sharing "A Google Sheet")
 - [TimeTable WebApp](https://elvistony.github.io/time-table)
