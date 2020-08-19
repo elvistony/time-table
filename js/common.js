@@ -56,7 +56,6 @@ function SetLinks() {
     document.getElementById('l'+i).href=Links[sub];
     i+=1;
   }
-  closeNav()
 }
 
 function SetColors() {
