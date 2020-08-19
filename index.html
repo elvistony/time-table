@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+<title>S7-TimeTable</title>
+<meta charset="UTF-8">
+<meta content="A Simple Site to get today's TimeTable" name="description" />
+<meta content="Elvis Tony" name="author" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="css/loader.css">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(255,255,255, 1);
+  overflow-x: hidden;
+  transition: 0.8s;
+  text-align: center;
+    padding-top: 30%;
+}
+
+</style>
+<body class="w3-white">
+
+<!-- Top menu -->
+<div class="w3-top w3-white">
+  <div class=" w3-center w3-padding" style="max-width:1200px;margin:auto">
+    <h4 class=" w3-padding-top w3-margin">CSE - S7 - A</h4>
+    <p id="time" class="w3-small w3-margin w3-padding-bottom">TimeTable for: <i>Loading</i></p>
+  </div>
+</div>
+
+<!-- !PAGE CONTENT! -->
+  <div class=" w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+    <div id="myNav" class="overlay">
+    <div class="overlay-content">
+      <div class="loader" id="status">Holla!<br>Hang on for a sec</div>
+    </div>
+    <button style="bottom:10%;position:relative;"  class="w3-button w3-small w3-border" onclick="closeNav()">Loading forever?<br>Click Here</button>
+  </div>
+
+  <div class="w3-row-padding w3-padding-16 w3-center" style="height:200px;" id="food">
+    <div style="height:100%;padding-top: 5%;" class="w3-quarter w3-deep-purple">
+      <h4 class="w3-small">Period 1</h4>
+      <h3 id="p1">Period-1</h3>
+      <a id="l1" href="#" class="w3-button w3-block w3-border w3-hover-white w3-round-large">Google Classroom</a>
+    </div>
+    <div style="height:100%;padding-top: 5%;" class="w3-quarter w3-deep-orange">
+      <h4 class="w3-small">Period 2</h4>
+      <h3 id="p2">Period-2</h3>
+      <a id="l2" href="#" class="w3-button w3-block w3-border w3-hover-white w3-round-large">Google Classroom</a>
+    </div>
+    <div style="height:100%;padding-top: 5%;" class="w3-quarter w3-green">
+      <h4 class="w3-small">Period 3</h4>
+      <h3 id="p3">Period-3</h3>
+      <a id="l3" href="#" class="w3-button w3-block w3-border w3-hover-white w3-round-large">Google Classroom</a>
+    </div>
+    <div style="height:100%;padding-top: 5%;" class="w3-quarter w3-red">
+      <h4 class="w3-small">Period 4</h4>
+      <h3 id="p4">Period-4</h3>
+      <a id="l4" href="#" class="w3-button w3-block w3-border w3-hover-white w3-round-large">Google Classroom</a>
+    </div>
+  </div>
+<!-- End page content -->
+</div>
+
+<footer class="w3-row-padding w3-padding-top w3-margin-top w3-center">
+  <div class=" w3-small">
+    <p>Developed by <span class="w3-small w3-text-blue w3-round"> LVZ </span>| Powered by <span class="w3-small w3-text-orange w3-round">Google API </span>| Hosted by <span class="w3-small w3-text-purple w3-round">Github</span></p>
+    <p>Backed by <a class="w3-text-green w3-small" href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+  </div>
+</footer>
+
+<script src="js/common.js" charset="utf-8"></script>
+</body>
+</html>
