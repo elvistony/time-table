@@ -31,7 +31,7 @@ function FetchToday(){
           console.log(data);
 
           if(data['As Per Schedule ?']!="Yes"){
-            document.getElementById('time').innerHTML="TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b>"
+            document.getElementById('time').innerHTML="<span class='w3-button w3-border'>TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b></span>"
             setTimetable(data['Period - 1'],data['Period - 2'],data['Period - 3'],data['Period - 4'])
             FetchLinks()
           }else{
