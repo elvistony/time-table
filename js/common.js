@@ -19,6 +19,13 @@ function csvJSON(csv){
   return result; //JSON
 }
 
+var Months=["January","Febuary","March","April","May","June","July","August","September","October","November","December"]
+var DayName=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+
+function getTodayName() {
+  var d = new Date();
+  return DayName[d.getDay()]
+}
 
 function FetchToday(){
   var request = new XMLHttpRequest();
@@ -28,16 +35,15 @@ function FetchToday(){
         if (request.readyState === 4 && request.status === 200) {
           var data = csvJSON(request.responseText)
           data=data[data.length - 1]
-          console.log(data);
-
+          //console.log(data);
+          var times = new Date(Date.parse(data['Timestamp']))
           if(data['As Per Schedule ?']!="Yes"){
-            document.getElementById('time').innerHTML="<span class='w3-button w3-border'>TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b></span>"
+            document.getElementById('time').innerHTML="<span class='w3-button w3-border'><b class='w3-text-red '>Special </b>TimeTable: <i class='w3-large'>"+DayName[times.getDay()]+","+Months[times.getMonth()]+" "+times.getDate()+" "+times.getFullYear()+"</b></span>"
             setTimetable(data['Period - 1'],data['Period - 2'],data['Period - 3'],data['Period - 4'])
             FetchLinks()
           }else{
-            document.getElementById('time').innerHTML="<span class='w3-button w3-border'><b class='w3-text-red '>Special </b>TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b></span>"
-            FetchTimeTable(data['Day'])
-
+            document.getElementById('time').innerHTML="<span class='w3-button w3-border'>TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b></span>"
+            FetchTimeTable(getTodayName())
           }
 
         }
@@ -75,7 +81,7 @@ function FetchLinks(){
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
                   var jsonn = csvJSON(request.responseText)
-                  console.log(jsonn);
+                  //console.log(jsonn);
                   Links=jsonn[0];
                   Colors=jsonn[1];
                   SetLinks()
@@ -94,7 +100,7 @@ function FetchTimeTable(day){
                 var data = csvJSON(request.responseText)
                 for (var pdays of data) {
                   if(pdays["Day"]==day){
-                    console.log(pdays);
+                    //console.log(pdays);
                     break;
                   }
                 }
