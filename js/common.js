@@ -12,14 +12,15 @@ function csvJSON(csv){
 	  var obj = {};
 	  var currentline=lines[i].split(",");
 	  for(var j=0;j<headers.length;j++){
-		  obj[headers[j]] = currentline[j];
+      head = headers[j].substring(1, headers[j].length-1);
+		  obj[head] = currentline[j].substring(1, currentline[j].length-1);
 	  }
 	  result.push(obj);
   }
   return result; //JSON
 }
 
-var Months=["January","Febuary","March","April","May","June","July","August","September","October","November","December"]
+var Months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"]
 var DayName=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
 
 function getTodayName() {
@@ -29,16 +30,16 @@ function getTodayName() {
 
 function FetchToday(){
   var request = new XMLHttpRequest();
-    request.open('GET', "https://cors-anywhere.herokuapp.com/docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?output=csv", true);
+    request.open('GET', "https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY/gviz/tq?tqx=out:csv&sheet=0", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
           var data = csvJSON(request.responseText)
           data=data[data.length - 1]
-          //console.log(data);
+          console.log(data);
           var times = new Date(Date.parse(data['Timestamp']))
           if(data['As Per Schedule ?']!="Yes"){
-            document.getElementById('time').innerHTML="<span class='w3-button w3-border'><b class='w3-text-red '>Special </b>TimeTable: <i class='w3-large'>"+DayName[times.getDay()]+","+Months[times.getMonth()]+" "+times.getDate()+" "+times.getFullYear()+"</b></span>"
+            document.getElementById('time').innerHTML="<span class='w3-button w3-border'><b class='w3-text-red '>Special </b>TimeTable: <i class='w3-bold'>"+DayName[times.getDay()]+","+Months[times.getMonth()]+" "+times.getDate()+" "+times.getFullYear()+"</b></span>"
             setTimetable(data['Period - 1'],data['Period - 2'],data['Period - 3'],data['Period - 4'])
             FetchLinks()
           }else{
@@ -57,7 +58,7 @@ var linkFetch=false;
 
 function SetLinks() {
   var i=1
-  console.log(Links);
+  //console.log(Links);
   for (var sub of TT) {
     document.getElementById('l'+i).href=Links[sub];
     i+=1;
@@ -66,7 +67,7 @@ function SetLinks() {
 
 function SetColors() {
   var i=1
-  console.log(Colors);
+  //console.log(Colors);
   for (var sub of TT) {
     document.getElementById('c'+i).style.background=Colors[sub];
     i+=1;
@@ -76,12 +77,12 @@ function SetColors() {
 
 function FetchLinks(){
     var request = new XMLHttpRequest();
-    request.open('GET',"https://cors-anywhere.herokuapp.com/docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?gid=546940971&single=true&output=csv", true);
+    request.open('GET',"https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY/gviz/tq?tqx=out:csv&sheet=Links", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
                   var jsonn = csvJSON(request.responseText)
-                  //console.log(jsonn);
+                  console.log(jsonn);
                   Links=jsonn[0];
                   Colors=jsonn[1];
                   SetLinks()
@@ -93,14 +94,14 @@ function FetchLinks(){
 
 function FetchTimeTable(day){
   var request = new XMLHttpRequest();
-    request.open('GET',"https://cors-anywhere.herokuapp.com/docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?gid=1414031351&single=true&output=csv", true);
+    request.open('GET',"https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY/gviz/tq?tqx=out:csv&sheet=TimeTable", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
                 var data = csvJSON(request.responseText)
                 for (var pdays of data) {
                   if(pdays["Day"]==day){
-                    //console.log(pdays);
+                    console.log(pdays);
                     break;
                   }
                 }
