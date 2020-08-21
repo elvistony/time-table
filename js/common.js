@@ -37,13 +37,15 @@ function FetchToday(){
           var data = csvJSON(request.responseText)
           data=data[data.length - 1]
           console.log(data);
-          var times = new Date(Date.parse(data['Timestamp']))
+
           if(data['As Per Schedule ?']!="Yes"){
+            var times = new Date(Date.parse(data['Date of Time Table']))
             document.getElementById('time').innerHTML="<span class='w3-padding w3-border'><b class='w3-text-red '>Special </b>TimeTable: <i class='w3-bold'>"+DayName[times.getDay()]+","+Months[times.getMonth()]+" "+times.getDate()+" "+times.getFullYear()+"</b></span>"
             setTimetable(data['Period - 1'],data['Period - 2'],data['Period - 3'],data['Period - 4'])
             FetchLinks()
           }else{
-            document.getElementById('time').innerHTML="<span class='w3-padding w3-border'><b class='w3-text-red '>Regular </b>TimeTable: <i class='w3-large'>"+data['Timestamp']+"</b></span>"
+            var d = new Date();
+            document.getElementById('time').innerHTML="<span class='w3-padding w3-border'><b class='w3-text-red '>Regular </b>TimeTable: <i class='w3-large'>"+DayName[d.getDay()]+","+Months[d.getMonth()]+" "+d.getDate()+" "+d.getFullYear()+"</b></span>"
             FetchTimeTable(getTodayName())
           }
 
