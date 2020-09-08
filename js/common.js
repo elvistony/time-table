@@ -45,7 +45,7 @@ function FetchToday(){
             FetchLinks()
           }else{
             var d = new Date();
-            document.getElementById('time').innerHTML="<span class='w3-padding w3-border'><b class='w3-text-red '>Regular </b>TimeTable: <i class='w3-large'>"+DayName[d.getDay()]+","+Months[d.getMonth()]+" "+d.getDate()+" "+d.getFullYear()+"</b></span>"
+            document.getElementById('time').innerHTML="<span class='w3-padding w3-border'><b class='w3-text-red '>Regular </b>TimeTable: <i class='w3-bold'>"+DayName[d.getDay()]+","+Months[d.getMonth()]+" "+d.getDate()+" "+d.getFullYear()+"</b></span>"
             FetchTimeTable(getTodayName())
           }
 
