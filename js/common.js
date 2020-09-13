@@ -45,7 +45,11 @@ function FetchToday(){
             FetchLinks()
           }else{
             var d = new Date();
-            document.getElementById('time').innerHTML="<span class='w3-padding w3-border'><b class='w3-text-red '>Regular </b>TimeTable: <i class='w3-bold'>"+DayName[d.getDay()]+","+Months[d.getMonth()]+" "+d.getDate()+" "+d.getFullYear()+"</b></span>"
+            if(DayName[d.getDay()]=="Sunday"){
+              document.getElementById('time').innerHTML="<span class='w3-padding w3-border'><b class='w3-text-red '>Its Sunday | </b>TimeTable: <i>"+DayName[(d.getDay())+6]+","+Months[d.getMonth()]+" "+d.getDate()+" "+d.getFullYear()+"</b></span>";
+            }else{
+              document.getElementById('time').innerHTML="<span class='w3-padding w3-border'><b class='w3-text-red '>Regular </b>TimeTable: <i class='w3-bold'>"+DayName[d.getDay()]+","+Months[d.getMonth()]+" "+d.getDate()+" "+d.getFullYear()+"</b></span>"  
+            }
             FetchTimeTable(getTodayName())
           }
 
@@ -146,7 +150,7 @@ function FetchTimeStart(day){
                     break;
                 }
                 perstart =  [pdays["p1"],pdays["p2"],pdays["p3"],pdays["p4"]];
-                console.log(perstart)
+                //console.log(perstart)
                 FetchTimeEnd(day)
         }
     }
@@ -166,7 +170,7 @@ function FetchTimeEnd(day){
                     break;
                 }
                 perend =  [pdays["p1"],pdays["p2"],pdays["p3"],pdays["p4"]];
-                console.log(perend)
+                //console.log(perend)
                 InitialzeTimes()
                 displayTimes()
         }
@@ -217,7 +221,7 @@ function InitialzeTimes(){
   for (const pe of perend) {
     r_end.push((new Date(ndate+" "+pe+":00")).getTime())
   }
-  console.log(perstart,perend);
+  //console.log(perstart,perend);
   countDownTime = r_start[0]
   setTimeout(function(){RenewCounter()},1000) 
   setNextPeriod(0)
@@ -302,7 +306,7 @@ function setNextPeriod(i){
 
 function conditionalBroad(n){
   if(countDownTime<n){
-    console.log(n);
+    //console.log(n);
     countDownTime=n;
   }
 }
