@@ -55,6 +55,7 @@ function FetchToday(){
 
 var TT=[]
 var Links={}
+var Meets={}
 var Colors={}
 var linkFetch=false;
 
@@ -63,6 +64,15 @@ function SetLinks() {
   //console.log(Links);
   for (var sub of TT) {
     document.getElementById('l'+i).href=Links[sub];
+    i+=1;
+  }
+}
+
+function SetMeets() {
+  var i=1
+  //console.log(Links);
+  for (var sub of TT) {
+    document.getElementById('m'+i).href=Meets[sub];
     i+=1;
   }
 }
@@ -87,10 +97,13 @@ function FetchLinks(){
                   console.log(jsonn);
                   Links=jsonn[0];
                   Colors=jsonn[1];
+                  Meets=jsonn[2];
                   SetLinks()
                   SetColors()
-          }
-      }
+                  FetchTimeStart(getTodayName())
+                  SetMeets()
+        }
+    }
 }
 
 
@@ -113,11 +126,58 @@ function FetchTimeTable(day){
     }
 }
 
+var times = []
+var perstart = []
+var perend = []
+var now = new Date()
+var ndate = (now).toDateString()
+
+function FetchTimeStart(day){
+  var request = new XMLHttpRequest();
+    request.open('GET',"https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY/gviz/tq?tqx=out:csv&sheet=TimeStart", true);
+    request.send(null);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+                var data = csvJSON(request.responseText)
+                for (var pdays of data) {
+                  if(DayName[now.getDay()]=='Friday' && pdays['Day']=='Friday'){
+                    continue;
+                  }else
+                    break;
+                }
+                perstart =  [pdays["p1"],pdays["p2"],pdays["p3"],pdays["p4"]];
+                console.log(perstart)
+                FetchTimeEnd(day)
+        }
+    }
+}
+
+function FetchTimeEnd(day){
+  var request = new XMLHttpRequest();
+    request.open('GET',"https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY/gviz/tq?tqx=out:csv&sheet=TimeEnd", true);
+    request.send(null);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+                var data = csvJSON(request.responseText)
+                for (var pdays of data) {
+                  if(DayName[now.getDay()]=='Friday' && pdays['Day']=='Friday'){
+                    continue;
+                  }else
+                    break;
+                }
+                perend =  [pdays["p1"],pdays["p2"],pdays["p3"],pdays["p4"]];
+                console.log(perend)
+                InitialzeTimes()
+                displayTimes()
+        }
+    }
+}
+
 function closeNav() {
   document.getElementById("myNav").style.opacity=0;
   setTimeout(function () {
     document.getElementById("myNav").outerHTML=""
-  }, 1000);
+  }, 500);
 }
 
 function setTimetable(p1,p2,p3,p4) {
@@ -128,5 +188,141 @@ function setTimetable(p1,p2,p3,p4) {
   document.getElementById('p4').innerText=p4
   // setLinks(p1,p2,p3,p4)
 }
+
+//resolved values:
+var r_start=[]
+var r_end=[]
+let countDownTime;
+
+// Set the date we're counting down to
+
+function displayTimes(){
+  var i=1;
+  for (const ps of perstart) {
+    document.getElementById('s'+i).innerText=ps
+    i+=1;
+  }
+  i=1;
+  for (const pe of perend) {
+    document.getElementById('e'+i).innerText=pe
+    i+=1;
+  }
+}
+
+function InitialzeTimes(){
+  for (const ps of perstart) {
+    r_start.push((new Date(ndate+" "+ps+":00")).getTime())
+  }
+  
+  for (const pe of perend) {
+    r_end.push((new Date(ndate+" "+pe+":00")).getTime())
+  }
+  console.log(perstart,perend);
+  countDownTime = r_start[0]
+  setTimeout(function(){RenewCounter()},1000) 
+  setNextPeriod(0)
+}
+
+
+
+
+
+function CheckWatch(){
+  ntime = (new Date()).getTime()
+  n=r_start[0]
+  if(ntime<r_start[0]){//Before 1st period
+    n=r_start[0]
+  }else if(ntime>r_start[0] && ntime<r_end[0]){ // In 1st period
+    console.log('1st period');
+    n=r_end[0]
+    setNextPeriod(0)
+  }else if(ntime<r_start[1] && ntime>r_end[0]){ // In 1st break
+    n=r_start[1]
+    console.log('first break');
+    setNextPeriod(-1)
+  }else if(ntime>r_start[1] && ntime<r_end[1]){ // In 2md period
+    n=r_end[1]
+    console.log('2nd period');
+    setNextPeriod(1)
+  }else if(ntime<r_start[2] && ntime>r_end[1]){ // In 2nd break
+    n=r_start[2]
+    console.log('2nd break');
+    setNextPeriod(-2)
+  }else if(ntime>r_start[2] && ntime<r_end[2]){ // In 3rd period
+    n=r_end[2]
+    console.log('3rd period');
+    setNextPeriod(2)
+  }else if(ntime<r_start[3] && ntime>r_end[2]){ // In 3rd break
+    n=r_start[3]
+    console.log('3rd break');
+    setNextPeriod(-3)
+  }else if(ntime>r_start[3] && ntime<r_end[3]){ // In 4th period
+    n=r_end[3]
+    console.log('4th period');
+    setNextPeriod(3)
+  }else{ // In 4st break
+    n=r_end[3]
+    clearInterval(timer);
+    document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Classes Over!</p>";
+    console.log('all over');
+    setNextPeriod(4)
+  }
+  conditionalBroad(n)
+}
+
+function setNextPeriod(i){
+  if(i<0){
+    document.getElementById('nowhr').innerText="Break"
+    document.getElementById('nxthr').innerText=TT[(i*-1)-1]
+    document.getElementById('nowhr').parentElement.style.background='biscuit';
+    document.getElementById('nxthr').parentElement.style.background=Colors[TT[(i*-1)-1]];
+  }else if(i==0){
+    document.getElementById('nowhr').innerText="Sleep"
+    document.getElementById('nxthr').innerText=TT[0]
+    document.getElementById('nowhr').parentElement.style.background='orchid';
+    document.getElementById('nxthr').parentElement.style.background=Colors[TT[i+1]];
+  }else if(i==3){
+    document.getElementById('nowhr').innerText=TT[i]
+    document.getElementById('nxthr').innerText='Sleep'
+    document.getElementById('nowhr').parentElement.style.background=Colors[TT[i]];
+    document.getElementById('nxthr').parentElement.style.background='orchid';
+  }else if(i>3){
+    document.getElementById('nowhr').innerText="Sleep"
+    document.getElementById('nxthr').innerText=""
+    document.getElementById('nowhr').parentElement.style.background='orchid';
+    document.getElementById('nxthr').parentElement.style.background='';
+  }else{
+    document.getElementById('nowhr').innerText=TT[i]
+    document.getElementById('nxthr').innerText=TT[i+1]
+    document.getElementById('nowhr').parentElement.style.background=Colors[TT[i]];
+    document.getElementById('nxthr').parentElement.style.background=Colors[TT[i+1]];
+
+  }
+}
+
+function conditionalBroad(n){
+  if(countDownTime<n){
+    console.log(n);
+    countDownTime=n;
+  }
+}
+let timer;
+function RenewCounter(){
+  clearInterval(timer)
+   timer = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownTime - now;
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("timeleft").innerHTML = minutes + ":" + seconds + "";
+    if (distance < 0) {
+      CheckWatch()
+      //document.getElementById("timeleft").innerHTML = "Over!";
+    }
+  }, 1000);
+
+}
+
+
 
 FetchToday()
