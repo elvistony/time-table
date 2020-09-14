@@ -277,9 +277,9 @@ function CheckWatch(){
 function setNextPeriod(i){
   if(i<0){
     document.getElementById('nowhr').innerText="Break"
-    document.getElementById('nxthr').innerText=TT[(i*-1)-1]
+    document.getElementById('nxthr').innerText=TT[(i*-1)]
     document.getElementById('nowhr').parentElement.style.background='biscuit';
-    document.getElementById('nxthr').parentElement.style.background=Colors[TT[(i*-1)-1]];
+    document.getElementById('nxthr').parentElement.style.background=Colors[TT[(i*-1)]];
   }else if(i==3){
     document.getElementById('nowhr').innerText=TT[i]
     document.getElementById('nxthr').innerText='Sleep'
