@@ -280,11 +280,6 @@ function setNextPeriod(i){
     document.getElementById('nxthr').innerText=TT[(i*-1)-1]
     document.getElementById('nowhr').parentElement.style.background='biscuit';
     document.getElementById('nxthr').parentElement.style.background=Colors[TT[(i*-1)-1]];
-  }else if(i==0){
-    document.getElementById('nowhr').innerText="Sleep"
-    document.getElementById('nxthr').innerText=TT[0]
-    document.getElementById('nowhr').parentElement.style.background='orchid';
-    document.getElementById('nxthr').parentElement.style.background=Colors[TT[i+1]];
   }else if(i==3){
     document.getElementById('nowhr').innerText=TT[i]
     document.getElementById('nxthr').innerText='Sleep'
