@@ -224,7 +224,11 @@ function InitialzeTimes(){
   //console.log(perstart,perend);
   countDownTime = r_start[0]
   setTimeout(function(){RenewCounter()},1000) 
-  setNextPeriod(0)
+
+  document.getElementById('nowhr').innerText="Sleep"
+  document.getElementById('nxthr').innerText=TT[0]
+  document.getElementById('nowhr').parentElement.style.background='cadetblue';
+  document.getElementById('nxthr').parentElement.style.background=Colors[TT[0]];
 }
 
 
