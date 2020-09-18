@@ -144,7 +144,8 @@ function FetchTimeStart(day){
         if (request.readyState === 4 && request.status === 200) {
                 var data = csvJSON(request.responseText)
                 for (var pdays of data) {
-                  if(DayName[now.getDay()]=='Friday' && pdays['Day']=='Friday'){
+                  if(DayName[now.getDay()]=="Friday"){
+                    console.log("its friday");
                     continue;
                   }else
                     break;
@@ -164,7 +165,7 @@ function FetchTimeEnd(day){
         if (request.readyState === 4 && request.status === 200) {
                 var data = csvJSON(request.responseText)
                 for (var pdays of data) {
-                  if(DayName[now.getDay()]=='Friday' && pdays['Day']=='Friday'){
+                  if(DayName[now.getDay()]=='Friday'){
                     continue;
                   }else
                     break;
