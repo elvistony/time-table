@@ -124,7 +124,7 @@ function FetchTimeTable(day){
                     break;
                   }
                 }
-                setTimetable(pdays['p1'],pdays['p2'],pdays['p3'],pdays['p4'])
+                setTimetable(pdays['p1'],pdays['p2'],pdays['p3'],pdays['p4'],pdays['p5'])
               FetchLinks()
         }
     }
@@ -150,7 +150,7 @@ function FetchTimeStart(day){
                   }else
                     break;
                 }
-                perstart =  [pdays["p1"],pdays["p2"],pdays["p3"],pdays["p4"]];
+                perstart =  [pdays["p1"],pdays["p2"],pdays["p3"],pdays["p4"],pdays["p5"]];
                 //console.log(perstart)
                 FetchTimeEnd(day)
         }
@@ -170,7 +170,7 @@ function FetchTimeEnd(day){
                   }else
                     break;
                 }
-                perend =  [pdays["p1"],pdays["p2"],pdays["p3"],pdays["p4"]];
+                perend =  [pdays["p1"],pdays["p2"],pdays["p3"],pdays["p4"],pdays["p5"]];
                 //console.log(perend)
                 InitialzeTimes()
                 displayTimes()
@@ -185,8 +185,15 @@ function closeNav() {
   }, 500);
 }
 
-function setTimetable(p1,p2,p3,p4) {
-  TT=[p1,p2,p3,p4]
+function setTimetable(p1,p2,p3,p4,p5) {
+  if(p5=="-"){
+    document.getElementById('labrow').outerHTML=""
+    TT=[p1,p2,p3,p4,"-"]
+  }else{
+    document.getElementById('p5').innerText=p5
+    TT=[p1,p2,p3,p4,p5]
+  }
+  
   document.getElementById('p1').innerText=p1
   document.getElementById('p2').innerText=p2
   document.getElementById('p3').innerText=p3
@@ -272,7 +279,12 @@ function CheckWatch(){
   }else{ // In 4st break
     n=r_end[3]
     clearInterval(timer);
-    document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Classes Over!</p>";
+    if(TT[4]=="-"){
+      document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Classes Over!</p>";
+    }else{
+      document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Today is Lab Day!</p>";
+
+    }
     console.log('all over');
     setNextPeriod(4)
   }
