@@ -42,9 +42,9 @@ function FetchToday(){
             var times = new Date(Date.parse(data['Date of Time Table']))
             document.getElementById('time').innerHTML="<span class='w3-padding w3-border'><b class='w3-text-red '>Special </b>TimeTable: <i class='w3-bold'>"+DayName[times.getDay()]+","+Months[times.getMonth()]+" "+times.getDate()+" "+times.getFullYear()+"</b></span>"
             if(getTodayName()=="Tuesday"){
-              setTimetable(data['Period - 1'],data['Period - 2'],data['Period - 3'],data['Period - 4'],"CD-Lab")
+              setTimetable(data['Period - 1'],data['Period - 2'],data['Period - 3'],data['Period - 4'],data['Period - 5'])
             }else{
-              setTimetable(data['Period - 1'],data['Period - 2'],data['Period - 3'],data['Period - 4'])
+              setTimetable(data['Period - 1'],data['Period - 2'],data['Period - 3'],data['Period - 4'],data['Period - 5'])
             }
             FetchLinks()
           }else{
