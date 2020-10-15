@@ -56,10 +56,12 @@ function FetchToday(){
             }
             FetchTimeTable(getTodayName())
           }
-
         }
     }
 }
+
+var audio = document.getElementById('audio-not');
+audio.volume=0.4;
 
 var TT=[]
 var Links={}
@@ -294,8 +296,43 @@ function CheckWatch(){
   }
   conditionalBroad(n)
 }
+var notif_enabled=false;
+function Ring(){
+  if(notif_enabled){
+    console.log("Rang Sound!");
+    audio.play();
+  }else{
+    console.log("Silent Mode");
+  }
+}
+
+function darkTheme(mode){
+  var body = document.body;
+  var topbar = document.getElementsByClassName('w3-top')[0];
+  var redpanel = document.getElementById('warnpanel');
+
+  if(mode){
+    body.classList.remove('w3-white')
+    body.classList.add('w3-black')
+    topbar.classList.remove('w3-white')
+    topbar.classList.add('w3-black')
+    redpanel.classList.remove('w3-pale-red')
+  }else{
+    body.classList.add('w3-white')
+    body.classList.remove('w3-black')
+    topbar.classList.add('w3-white')
+    topbar.classList.remove('w3-black')
+    redpanel.classList.add('w3-pale-red')
+  }
+}
+
+var onloadpage=true;
 
 function setNextPeriod(i){
+  if(!onloadpage){
+    Ring()
+  }
+  onloadpage=false;
   if(i<0){
     document.getElementById('nowhr').innerText="Break"
     document.getElementById('nxthr').innerText=TT[(i*-1)]
@@ -346,3 +383,56 @@ function RenewCounter(){
 
 
 FetchToday()
+
+document.getElementById("audio-switch").checked = (getCookie("notif") != "no" ? true : false);
+notif_enabled = (getCookie("notif") != "no" ? true : false);
+
+document.getElementById("dark-switch").checked = (getCookie("dark") != "no" ? true : false);
+darkTheme((getCookie("dark") != "no" ? true : false))
+
+function saveNotifChange(ele){
+  setCookie("notif", (ele.checked == true ? "yes":"no") , 10)
+  notif_enabled = ele.checked;
+}
+
+function saveDarkChange(ele){
+  setCookie("dark", (ele.checked == true ? "yes":"no") , 10)
+  darkTheme(ele.checked);
+}
+// Cookie Support
+
+function setCookie(key, cvalue, exdays) {
+  console.log("setting "+key+" "+cvalue);
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = key + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "no";
+}
+
+function checkCookie(key) {
+  var cvalue = getCookie(key);
+  console.log("checked "+cvalue);
+  if(cvalue!="no"){
+    notif_enabled=true;
+  }else{
+    notif_enabled=false;true
+  }
+}
+
+
+// Endof Cookies

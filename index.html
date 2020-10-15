@@ -106,9 +106,28 @@ function move(bar) {
 <!-- End page content -->
 </div>
 
-<footer class="w3-row-padding w3-padding-top w3-margin-top w3-center">
+
+  <div class="w3-container w3-margin w3-black w3-round">
+    <p class="w3-center">Settings</p>
+    <div class="w3-row">
+        <label class="switch w3-right w3-margin">
+          <input id="audio-switch" type="checkbox" onchange="saveNotifChange(this)">
+          <span class="slider round"></span>
+        </label>
+        <p class="w3-left">Enable Audio Alerts</p>
+    </div>
+    <div class="w3-row">
+        <label class="switch w3-right w3-margin">
+          <input id="dark-switch" type="checkbox" onchange="saveDarkChange(this)">
+          <span class="slider round"></span>
+        </label>
+        <p class="w3-left">Enable Dark Mode</p>
+    </div>
+  </div>
+
+<footer class="w3-row-padding w3-container w3-padding-top w3-margin-top w3-center">
   <hr>
-  <div class="w3-center w3-panel w3-padding w3-pale-red">
+  <div id="warnpanel" class="w3-center w3-panel w3-padding w3-round w3-pale-red">
     Having trouble Loading ? Go to <a href="https://classroom.google.com" class="w3-button w3-pale-green w3-hover-green w3-round">Google Classroom</a> Directly<br><span class="w3-small">In case the site Fails to load, Use the Link above to Enter Google Classroom Dashboard</span> 
   <p></p>
   </div>
@@ -120,9 +139,12 @@ function move(bar) {
   </div>
 </footer>
 
-<script>
 
-</script>
+
+
+
+<audio id="audio-not" src="media/notif.ogg"></audio>
+
 
 <script src="js/common.js" charset="utf-8"></script>
 </body>
