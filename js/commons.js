@@ -139,13 +139,16 @@ var UserNo = 0
 
 if(location.hash!=""){
   UserNo = location.hash[1]*1;
-  setCookie("cur_user", location.hash, 100);
+  setCookie("cur_user", location.hash[1]*1, 100);
   document.getElementById('gid'+UserNo).classList.add('w3-border')
 }else{
   var n= getCookie("cur_user");
-  if(n!=""){
+  if(n!="no"&&n!=null){
     UserNo = n;
     document.getElementById('gid'+n).classList.add('w3-border')
+  }else{
+    UserNo = 0;
+    document.getElementById('gid0').classList.add('w3-border')
   }
 }
 
