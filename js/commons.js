@@ -90,7 +90,7 @@ var audio = document.getElementById('audio-not');
 var vol = getCookie('volume');
 var cur_mode="med";
 
-if(vol!=""){
+if(vol!="no"){
   if(vol=="0.6"){
     audio.volume=0.6;
     cur_mode="high"
