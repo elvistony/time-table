@@ -4,6 +4,30 @@
 
 var status=document.getElementById('status')
 
+console.log(`Welcome to TimeTable Console \n 
+
+ __         __   __   ______    
+/\\ \\       /\\ \\ / /  /\\___  \\   
+\\ \\ \\____  \\ \\ \\'/   \\/_/  /__  
+ \\ \\_____\\  \\ \\__|     /\\_____\\ 
+  \\/_____/   \\/_/      \\/_____/ 
+                                
+
+Available Interfaces:
+  > getTodayName()
+  
+  > setNotifVolume(a_vol)
+      - value between 0 - 1
+  
+  > FetchTimeTable(day)
+      - day must be like "Friday"
+  
+  > darkTheme(mode)
+      - mode is True or False
+
+
+`)
+
 function csvJSON(csv){
   var lines=csv.split("\n");
   var result = [];
@@ -36,7 +60,7 @@ function FetchToday(){
         if (request.readyState === 4 && request.status === 200) {
           var data = csvJSON(request.responseText)
           data=data[data.length - 1]
-          console.log(data);
+          //console.log(data);
 
           if(data['As Per Schedule ?']!="Yes"){
             var times = new Date(Date.parse(data['Date of Time Table']))
@@ -61,7 +85,49 @@ function FetchToday(){
 }
 
 var audio = document.getElementById('audio-not');
-audio.volume=0.4;
+
+
+var vol = getCookie('volume');
+var cur_mode="med";
+
+if(vol!=""){
+  if(vol=="0.6"){
+    audio.volume=0.6;
+    cur_mode="high"
+  }else if(vol=="0.4"){
+    audio.volume=0.4;
+    cur_mode="med"
+  }else{
+    audio.volume=0.2;
+    cur_mode="med"
+  }
+}else{//Default
+  audio.volume=0.4;
+  cur_mode="med"
+}
+
+
+function setNotifVolume(a_vol){
+  a_vol = a_vol*1;
+  if(a_vol<1){
+    document.getElementById('vol-'+cur_mode).classList.remove('w3-border');
+    if(a_vol=="0.6"){
+      document.getElementById('vol-high').classList.add('w3-border')
+      cur_mode="high"
+    }else if(a_vol=="0.4"){
+      document.getElementById('vol-med').classList.add('w3-border')
+      cur_mode="med"
+    }else{
+      document.getElementById('vol-low').classList.add('w3-border')
+      cur_mode="low"
+    }
+    setCookie('volume',a_vol,100)
+    audio.volume=a_vol;
+  }else{
+    console.log('setNotifVolume(value) \n value must be between 0 - 1');
+  }
+}
+
 
 var TT=[]
 var Links={}
@@ -69,11 +135,27 @@ var Meets={}
 var Colors={}
 var linkFetch=false;
 
+var UserNo = 0
+
+if(location.hash!=""){
+  UserNo = location.hash[1]*1;
+  setCookie("cur_user", location.hash, 100);
+  document.getElementById('gid'+UserNo).classList.add('w3-border')
+}else{
+  var n= getCookie("cur_user");
+  if(n!=""){
+    UserNo = n;
+    document.getElementById('gid'+n).classList.add('w3-border')
+  }
+}
+
+
+
 function SetLinks() {
   var i=1
   //console.log(Links);
   for (var sub of TT) {
-    document.getElementById('l'+i).href=Links[sub];
+    document.getElementById('l'+i).href="https://classroom.google.com/u/"+UserNo+Links[sub];
     i+=1;
   }
 }
@@ -82,7 +164,7 @@ function SetMeets() {
   var i=1
   //console.log(Links);
   for (var sub of TT) {
-    document.getElementById('m'+i).href=Meets[sub];
+    document.getElementById('m'+i).href=Meets[sub]+"?authuser="+UserNo+"&hs=179";
     i+=1;
   }
 }
@@ -104,7 +186,7 @@ function FetchLinks(){
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
                   var jsonn = csvJSON(request.responseText)
-                  console.log(jsonn);
+                  //console.log(jsonn);
                   Links=jsonn[0];
                   Colors=jsonn[1];
                   Meets=jsonn[2];
@@ -126,7 +208,7 @@ function FetchTimeTable(day){
                 var data = csvJSON(request.responseText)
                 for (var pdays of data) {
                   if(pdays["Day"]==day){
-                    console.log(pdays);
+                    //console.log(pdays);
                     break;
                   }
                 }
@@ -151,7 +233,7 @@ function FetchTimeStart(day){
                 var data = csvJSON(request.responseText)
                 for (var pdays of data) {
                   if(DayName[now.getDay()]=="Friday"){
-                    console.log("its friday");
+                    //console.log("its friday");
                     continue;
                   }else
                     break;
@@ -291,7 +373,7 @@ function CheckWatch(){
       document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Today is Lab Day!</p>";
 
     }
-    console.log('all over');
+    //console.log('all over');
     setNextPeriod(4)
   }
   conditionalBroad(n)
@@ -313,18 +395,20 @@ function darkTheme(mode){
 
   if(mode){
     body.classList.remove('w3-white')
-    body.classList.add('w3-black')
+    body.classList.add('w3-dark')
     topbar.classList.remove('w3-white')
-    topbar.classList.add('w3-black')
+    topbar.classList.add('w3-dark')
     redpanel.classList.remove('w3-pale-red')
   }else{
     body.classList.add('w3-white')
-    body.classList.remove('w3-black')
+    body.classList.remove('w3-dark')
     topbar.classList.add('w3-white')
-    topbar.classList.remove('w3-black')
+    topbar.classList.remove('w3-dark')
     redpanel.classList.add('w3-pale-red')
   }
 }
+
+
 
 var onloadpage=true;
 
@@ -399,10 +483,12 @@ function saveDarkChange(ele){
   setCookie("dark", (ele.checked == true ? "yes":"no") , 10)
   darkTheme(ele.checked);
 }
+
+
 // Cookie Support
 
 function setCookie(key, cvalue, exdays) {
-  console.log("setting "+key+" "+cvalue);
+  console.log("Cookie - Setting "+key+" "+cvalue);
   var d = new Date();
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
   var expires = "expires="+d.toUTCString();

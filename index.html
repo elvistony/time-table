@@ -106,29 +106,40 @@ function move(bar) {
 <!-- End page content -->
 </div>
 
-
-  <div class="w3-container w3-margin w3-black w3-round">
-    <p class="w3-center">Settings</p>
-    <div class="w3-row">
+  <div class="w3-padding-32 w3-margin w3-center">
+    <p class=" w3-button w3-teal w3-round-large w3-hover-blue" onclick="OpenSettings(this)">Alter TimeTable Settings</p>
+    <div class="w3-content w3-hide" id="settings">
+      <div class="w3-row">
         <label class="switch w3-right w3-margin">
           <input id="audio-switch" type="checkbox" onchange="saveNotifChange(this)">
           <span class="slider round"></span>
         </label>
-        <p class="w3-left">Enable Audio Alerts</p>
-    </div>
-    <div class="w3-row">
-        <label class="switch w3-right w3-margin">
-          <input id="dark-switch" type="checkbox" onchange="saveDarkChange(this)">
-          <span class="slider round"></span>
-        </label>
-        <p class="w3-left">Enable Dark Mode</p>
+        <p class="w3-left">Enable Audio Alerts </p>
+      </div>
+      <div class="w3-row w3-margin" >     
+        <p class="w3-left">Volume <span class="w3-border w3-tiny w3-border w3-padding w3-round-large w3-hover-pink" style="user-select: none;" onclick="Ring()">Test Sound</span></p>     
+          <span class="w3-right">
+            <span id="vol-low" onclick="setNotifVolume(0.2)" class=" w3-tiny  w3-padding w3-round-large w3-hover-opacity" style="user-select: none;" >Low</span> <span id="vol-med" onclick="setNotifVolume(0.4)" class=" w3-tiny  w3-padding w3-round-large w3-hover-opacity w3-border" style="user-select: none;"  >Medium</span> <span id="vol-high" onclick="setNotifVolume(0.6)" class=" w3-tiny  w3-padding w3-round-large w3-hover-opacity " style="user-select: none;" >High</span>
+          </span> 
+      </div>
+      <div class="w3-row">
+          <label class="switch w3-right w3-margin">
+            <input id="dark-switch" type="checkbox" onchange="saveDarkChange(this)">
+            <span class="slider round"></span>
+          </label>
+          <p class="w3-left">Enable Dark Mode</p>
+      </div>
+      <div class="w3-row">
+        <span class="w3-right w3-small"> <a href="https://elvistony.github.io/time-table/#0" id="gid0" class="w3-margin w3-center w3-button w3-round">0</a><a id="gid1" href="https://elvistony.github.io/time-table/#1" class="w3-margin w3-center w3-button w3-round">1</a><a href="https://elvistony.github.io/time-table/#0" id="gid2" class="w3-margin w3-center w3-button w3-round">2</a> </span> 
+        <p class="w3-left">Set Google User <i class="fa fa-question-circle" title="Set your College Google Account Position to avoid selecting the account on every click! (Works on Desktop Only)"></i></p>  
+      </div>
     </div>
   </div>
 
 <footer class="w3-row-padding w3-container w3-padding-top w3-margin-top w3-center">
   <hr>
   <div id="warnpanel" class="w3-center w3-panel w3-padding w3-round w3-pale-red">
-    Having trouble Loading ? Go to <a href="https://classroom.google.com" class="w3-button w3-pale-green w3-hover-green w3-round">Google Classroom</a> Directly<br><span class="w3-small">In case the site Fails to load, Use the Link above to Enter Google Classroom Dashboard</span> 
+    Having trouble Loading ? Go to  <a href="https://classroom.google.com" class="w3-button w3-border w3-hover-green w3-round"><i class="w3-large fa fa-google w3-text-purple"></i>oogle Classroom</a> Directly<br><span class="w3-small">In case the site Fails to load, Use the Link above to Enter Google Classroom Dashboard</span> 
   <p></p>
   </div>
   <hr>
@@ -139,13 +150,20 @@ function move(bar) {
   </div>
 </footer>
 
-
-
-
-
 <audio id="audio-not" src="media/notif.ogg"></audio>
 
-
-<script src="js/common.js" charset="utf-8"></script>
+<script>
+  function OpenSettings(ele){
+    settings = document.getElementById('settings');
+    if(settings.classList.contains('w3-hide')){
+      ele.innerText="Save and Close Settings";
+      settings.classList.remove('w3-hide')
+    }else{
+      ele.innerText="Alter Timetable Settings";
+      settings.classList.add('w3-hide')
+    }
+  }
+</script>
+<script src="js/commons.js" charset="utf-8"></script>
 </body>
 </html>
