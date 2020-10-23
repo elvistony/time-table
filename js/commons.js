@@ -277,7 +277,7 @@ function closeNav() {
 }
 
 function setTimetable(p1,p2,p3,p4,p5) {
-  if(p5=="-"){
+  if(p5=="-"||p5==""){
     document.getElementById('labrow').style.display='none';
     TT=[p1,p2,p3,p4,"-"]
   }else{
