@@ -1,9 +1,3 @@
-//https://docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?output=csv
-//links = https://docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?gid=546940971&single=true&output=csv
-//tt = https://docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pub?gid=1414031351&single=true&output=csv
-
-var status=document.getElementById('status')
-
 console.log(`Welcome to TimeTable Console \n 
 
  __         __   __   ______    
@@ -26,7 +20,39 @@ Available Interfaces:
       - mode is True or False
 
 
-`)
+`);
+
+
+// --- Google Sheet ID
+var sheet_id = "1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY"   //Edit this to change Source Sheet
+
+// --- Support Variables
+var sheet_link = "https://docs.google.com/spreadsheets/d/"+sheet_id+"/gviz/tq?tqx=out:csv"
+var Months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"]
+var DayName=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+var status = document.getElementById('status')
+var audio = document.getElementById('audio-not');
+var vol = getCookie('volume');
+var cur_mode="med";         //Current Volume = medium=med {high,med,low}
+var TT=[]
+var Links={}
+var Meets={}
+var Colors={}
+var linkFetch=false;
+var UserNo = 0
+var times = []
+var perstart = []
+var perend = []
+var now = new Date()
+var ndate = (now).toDateString()
+var r_start=[]
+var r_end=[]
+let countDownTime;
+
+function getTodayName() {
+  var d = new Date();
+  return DayName[d.getDay()]
+}
 
 function csvJSON(csv){
   var lines=csv.split("\n");
@@ -44,17 +70,9 @@ function csvJSON(csv){
   return result; //JSON
 }
 
-var Months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"]
-var DayName=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
-
-function getTodayName() {
-  var d = new Date();
-  return DayName[d.getDay()]
-}
-
 function FetchToday(){
   var request = new XMLHttpRequest();
-    request.open('GET', "https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY/gviz/tq?tqx=out:csv&sheet=0", true);
+    request.open('GET', sheet_link+"&sheet=0", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -84,11 +102,6 @@ function FetchToday(){
     }
 }
 
-var audio = document.getElementById('audio-not');
-
-
-var vol = getCookie('volume');
-var cur_mode="med";
 
 if(vol!="no"){
   if(vol=="0.6"){
@@ -129,13 +142,7 @@ function setNotifVolume(a_vol){
 }
 
 
-var TT=[]
-var Links={}
-var Meets={}
-var Colors={}
-var linkFetch=false;
 
-var UserNo = 0
 
 if(location.hash!=""){
   UserNo = location.hash[1]*1;
@@ -184,7 +191,7 @@ function SetColors() {
 
 function FetchLinks(){
     var request = new XMLHttpRequest();
-    request.open('GET',"https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY/gviz/tq?tqx=out:csv&sheet=Links", true);
+    request.open('GET',sheet_link+"&sheet=Links", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -204,7 +211,7 @@ function FetchLinks(){
 
 function FetchTimeTable(day){
   var request = new XMLHttpRequest();
-    request.open('GET',"https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY/gviz/tq?tqx=out:csv&sheet=TimeTable", true);
+    request.open('GET',sheet_link+"&sheet=TimeTable", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -221,15 +228,11 @@ function FetchTimeTable(day){
     }
 }
 
-var times = []
-var perstart = []
-var perend = []
-var now = new Date()
-var ndate = (now).toDateString()
+
 
 function FetchTimeStart(day){
   var request = new XMLHttpRequest();
-    request.open('GET',"https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY/gviz/tq?tqx=out:csv&sheet=TimeStart", true);
+    request.open('GET',sheet_link+"&sheet=TimeStart", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -250,7 +253,7 @@ function FetchTimeStart(day){
 
 function FetchTimeEnd(day){
   var request = new XMLHttpRequest();
-    request.open('GET',"https://docs.google.com/spreadsheets/d/1wdG2LWLWsCLCy1MPC3iydJlRKqM9ntYUacftEkW8VoY/gviz/tq?tqx=out:csv&sheet=TimeEnd", true);
+    request.open('GET',sheet_link+"&sheet=TimeEnd", true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -292,13 +295,6 @@ function setTimetable(p1,p2,p3,p4,p5) {
   // setLinks(p1,p2,p3,p4)
 }
 
-//resolved values:
-var r_start=[]
-var r_end=[]
-let countDownTime;
-
-// Set the date we're counting down to
-
 function displayTimes(){
   var i=1;
   for (const ps of perstart) {
@@ -316,14 +312,12 @@ function InitialzeTimes(){
   for (const ps of perstart) {
     r_start.push((new Date(ndate+" "+ps+":00")).getTime())
   }
-  
   for (const pe of perend) {
     r_end.push((new Date(ndate+" "+pe+":00")).getTime())
   }
   //console.log(perstart,perend);
   countDownTime = r_start[0]
   setTimeout(function(){RenewCounter()},1000) 
-
   document.getElementById('nowhr').innerText="Sleep"
   document.getElementById('nxthr').innerText=TT[0]
   document.getElementById('nowhr').parentElement.style.background='cadetblue';
@@ -374,9 +368,7 @@ function CheckWatch(){
       document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Classes Over!</p>";
     }else{
       document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Today is Lab Day!</p>";
-
     }
-    //console.log('all over');
     setNextPeriod(4)
   }
   conditionalBroad(n)
@@ -395,7 +387,6 @@ function darkTheme(mode){
   var body = document.body;
   var topbar = document.getElementsByClassName('w3-top')[0];
   var redpanel = document.getElementById('warnpanel');
-
   if(mode){
     body.classList.remove('w3-white')
     body.classList.add('w3-dark')
@@ -446,7 +437,6 @@ function setNextPeriod(i){
 
 function conditionalBroad(n){
   if(countDownTime<n){
-    //console.log(n);
     countDownTime=n;
   }
 }
@@ -461,35 +451,31 @@ function RenewCounter(){
     document.getElementById("timeleft").innerHTML = minutes + ":" + seconds + "";
     if (distance < 0) {
       CheckWatch()
-      //document.getElementById("timeleft").innerHTML = "Over!";
     }
   }, 1000);
 
 }
 
 
+//Run on Page Load
 
 FetchToday()
-
 document.getElementById("audio-switch").checked = (getCookie("notif") != "no" ? true : false);
 notif_enabled = (getCookie("notif") != "no" ? true : false);
-
 document.getElementById("dark-switch").checked = (getCookie("dark") != "no" ? true : false);
 darkTheme((getCookie("dark") != "no" ? true : false))
-
 function saveNotifChange(ele){
   setCookie("notif", (ele.checked == true ? "yes":"no") , 10)
   notif_enabled = ele.checked;
 }
-
 function saveDarkChange(ele){
   setCookie("dark", (ele.checked == true ? "yes":"no") , 10)
   darkTheme(ele.checked);
 }
 
 
-// Cookie Support
 
+// Cookie Support
 function setCookie(key, cvalue, exdays) {
   console.log("Cookie - Setting "+key+" "+cvalue);
   var d = new Date();
