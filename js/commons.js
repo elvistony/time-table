@@ -105,17 +105,17 @@ function FetchToday(){
 
 if(vol!="no"){
   if(vol=="0.6"){
-    audio.volume=0.6;
+    audio.volume=0.8;
     cur_mode="high"
   }else if(vol=="0.4"){
-    audio.volume=0.4;
+    audio.volume=0.6;
     cur_mode="med"
   }else{
-    audio.volume=0.2;
+    audio.volume=0.45;
     cur_mode="med"
   }
 }else{//Default
-  audio.volume=0.4;
+  audio.volume=0.5;
   cur_mode="med"
 }
 
