@@ -6,7 +6,8 @@
 	position: absolute;
 	top: 0;
     left: 0;
-	animation: snowOne 10s infinite linear;
+	z-index:-1;
+	animation: snowOne 20s infinite linear;
 }
 .snow2 {
 	background: url(https://designshack.net/tutorialexamples/letitsnow/snow.png);
@@ -16,7 +17,8 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	animation: snowTwo 10s infinite linear;
+	z-index:-1;
+	animation: snowTwo 20s infinite linear;
 	background-size: 300px;
 	filter: blur(1px);
 }
@@ -28,7 +30,8 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	animation: snowThree 10s infinite linear;
+	z-index:-1;
+	animation: snowThree 20s infinite linear;
 	background-size: 800px;
 	filter: blur(2px);
 }
