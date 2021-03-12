@@ -335,7 +335,7 @@ function setDayAsHoliday(){
   document.getElementById('timediv').style.display="none"
   var img =  document.createElement('div')
   img.classList.add('w3-center')
-  img.innerHTML='<img src="https://poster.keepcalmandposters.com/2555533.png" style="width=50%" alt="Today is a Holiday!">';
+  img.innerHTML='<img src="https://poster.keepcalmandposters.com/2555533.png" class="w3-image" style="width=50%" alt="Today is a Holiday!">';
   document.getElementById('timediv').outerHTML=img.outerHTML+document.getElementById('timediv').outerHTML
 }
 
