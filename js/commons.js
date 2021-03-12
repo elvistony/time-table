@@ -79,8 +79,14 @@ function FetchToday(){
           var data = csvJSON(request.responseText)
           data=data[data.length - 1]
           //console.log(data);
-
-          if(data['As Per Schedule ?']!="Yes"){
+          if(data['As Per Schedule ?']=="Holiday"){
+            var times = new Date(Date.parse(data['Date of Time Table']))
+            document.getElementById('time').innerHTML="<span class='w3-padding w3-border'>Holiday <i class='w3-bold'>"+DayName[times.getDay()]+","+Months[times.getMonth()]+" "+times.getDate()+" "+times.getFullYear()+"</b></span>";
+            document.getElementById('tt').innerHTML = ""
+            document.getElementById('labrow').innerHTML = ""
+            setDayAsHoliday()
+            
+          }else if(data['As Per Schedule ?']!="Yes"){
             var times = new Date(Date.parse(data['Date of Time Table']))
             document.getElementById('time').innerHTML="<span class='w3-padding w3-border'><b class='w3-text-red '>Special </b>TimeTable: <i class='w3-bold'>"+DayName[times.getDay()]+","+Months[times.getMonth()]+" "+times.getDate()+" "+times.getFullYear()+"</b></span>"
             if(getTodayName()=="Tuesday"){
@@ -324,6 +330,14 @@ function InitialzeTimes(){
   document.getElementById('nxthr').parentElement.style.background=Colors[TT[0]];
 }
 
+function setDayAsHoliday(){
+  closeNav()
+  document.getElementById('timediv').style.display="none"
+  var img =  document.createElement('div')
+  img.classList.add('w3-center')
+  img.innerHTML='<img src="https://poster.keepcalmandposters.com/2555533.png" style="width=50%" alt="Today is a Holiday!">';
+  document.getElementById('timediv').outerHTML=img.outerHTML+document.getElementById('timediv').outerHTML
+}
 
 
 
@@ -365,9 +379,9 @@ function CheckWatch(){
     n=r_end[3]
     clearInterval(timer);
     if(TT[4]=="-"){
-      document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Classes Over!</p>";
+      document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Done for Today!</p>";
     }else{
-      document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Today is Lab Day!</p>";
+      document.getElementById("timeleft").innerHTML = "<p class='w3-small'>Done for Today!</p>";
     }
     setNextPeriod(4)
   }

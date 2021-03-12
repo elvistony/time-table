@@ -13,16 +13,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
-<div class="snow"></div>
+<!-- <div class="snow"></div> -->
 
 <body class="w3-white">
-  <!-- <div class="snow1"></div>
-  <div class="snow2"></div>
-  <div class="snow3"></div> -->
-
 <div class="w3-top w3-white">
   <div class=" w3-center w3-padding" style="max-width:1200px;margin:auto">
-    <h4 class=" w3-padding-top w3-margin">CSE - S7 - A</h4>
+    <h4 class=" w3-padding-top w3-margin">CSE - S8 - A</h4>
     <p id="time" class="w3-small w3-margin w3-padding-bottom">TimeTable for: <i>Loading</i></p>
   </div>
 </div>
@@ -37,7 +33,7 @@
     <span class="loader-btn w3-opacity w3-small" onclick="closeNav()"><br>Stop Loading</span>
   </div>
 
-  <div class=" w3-display-container w3-round-large">
+  <div class=" w3-display-container w3-round-large" id="timediv">
     <span class="w3-display-topleft w3-text-white w3-small w3-margin w3-round-large w3-padding" style="background:white;">Now<br><span class="w3-large" id="nowhr">Sleep</span></span>
     <span  class="w3-display-topright w3-small w3-text-white w3-margin w3-round-large w3-padding" style="background:white;">Next <br><span class="w3-large" id="nxthr">Sleep</span></span>
     <div class="w3-center">
@@ -61,7 +57,7 @@ function move(bar) {
 }
 </script>
 
-  <div class="w3-row-padding w3-padding-16 w3-center" style="height:200px;" id="food">
+  <div class="w3-row-padding w3-padding-16 w3-center" style="height:200px;" id="tt">
     <div style="height:100%;" class="w3-text-white w3-display-container w3-quarter" id="c1">
       <a id="m1" href="#" class="w3-display-topright w3-button  w3-small w3-hover-opacity" target="_blank"><i class="fa fa-video-camera"></i></a>
       <h4 class="w3-small">Period 1</h4>
@@ -151,7 +147,6 @@ function move(bar) {
     Having trouble Loading ? Go to  <a href="https://classroom.google.com" class="w3-button w3-border w3-hover-teal w3-round"><i class="w3-large fa fa-google w3-text-orange"></i>oogle Classroom</a> Directly<br><span class="w3-small">In case the site Fails to load, Use the Link above to Enter Google Classroom Dashboard</span> 
   <p>and by the way,</p>
   </div>
-  <img src="christmas.png"  alt="Merry Christmas" class="w3-image w3-fluid">  
   <hr>
   <div class="w3-small">
     <p>Developed by <span class="w3-small w3-text-blue w3-round"> LVZ </span>| Powered by <span class="w3-small w3-text-orange w3-round">Google API </span>| Hosted by <span class="w3-small w3-text-purple w3-round">Github</span></p>
@@ -160,7 +155,7 @@ function move(bar) {
   </div>
 </footer>
 
-<audio id="audio-not" src="christmas.ogg"></audio>
+<audio id="audio-not" src="media/notif.mp3"></audio>
 
 <script>
   function OpenSettings(ele){
