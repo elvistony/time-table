@@ -28,4 +28,4 @@ Inline-style:
 - [TimeTable WebApp](https://elvistony.github.io/time-table)
 - [Google Sheet - Form](https://docs.google.com/spreadsheets/d/e/2PACX-1vQMZBPGbpYgJ1iOND9yMMOHK0WPkpy90Zp-963v5-5s2nEuRGxlQYRYgntoQETVLkEihcznfT3hEjOy/pubhtml)
 ### Want to Host Your Own ?
-- Steps coming soon!
+- Check out my [Blog Post](https://elvistony.me/posts/code/host-your-own-timetable/)
