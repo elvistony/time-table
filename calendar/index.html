@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<title>S8 TimeTable</title>
+<meta charset="UTF-8">
+<meta content="Todays S8 Timetable!" name="description" />
+<meta content="Elvis Tony" name="author" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="css/loader.css">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+<!-- <div class="snow"></div> -->
+
+<body class="w3-white">
+<div class="w3-white">
+  <div class=" w3-center w3-padding" style="max-width:1200px;margin:auto">
+    <h4 class=" w3-padding-top w3-margin">CSE - S8 - A</h4>
+    <p id="time" class="w3-small w3-margin w3-padding-bottom">Academic Calendar</i></p>
+  </div>
+</div>
+
+
+  <div class="w3-margin w3-center" style="" id="tt">
+    <iframe style="width:100%;" src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Asia%2FKolkata&amp;src=Y180ZGg1Zjd1N2lkZ204Y3Mxa29jMWFrczh2b0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%233F51B5&amp;mode=MONTH&amp;showPrint=0&amp;showTz=0&amp;showNav=0&amp;title=Academic%20Calendar%20-%20S8" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+  </div>
+  
+  
+  <div class="w3-block w3-center w3-margin-top">
+    <a href="http://aishwaryajoyy.c1.biz/" target="_blank" class="w3-button w3-margin w3-center w3-round-large  w3-hover-teal">View TimeTable <span class="w3-small">From Aishu's Site</span></a>
+  </div>
+  
+<!-- End page content -->
+</div>
+
+  <div class="w3-padding-32 w3-margin w3-center">
+    <p class=" w3-button w3-teal w3-round-large w3-hover-blue" onclick="OpenSettings(this)">Alter TimeTable Settings</p>
+    <div class="w3-content w3-hide" id="settings">
+      <div class="w3-row">
+        <label class="switch w3-right w3-margin">
+          <input id="audio-switch" type="checkbox" onchange="saveNotifChange(this)">
+          <span class="slider round"></span>
+        </label>
+        <p class="w3-left">Enable Audio Alerts </p>
+      </div>
+      <div class="w3-row w3-margin" >     
+        <p class="w3-left">Volume <span class="w3-border w3-tiny w3-border w3-padding w3-round-large w3-hover-pink" style="user-select: none;" onclick="Ring()">Test Sound</span></p>     
+          <span class="w3-right w3-margin">
+            <span id="vol-low" onclick="setNotifVolume(0.2)" class=" w3-tiny  w3-padding w3-round-large w3-hover-opacity" style="user-select: none;" >Low</span> <span id="vol-med" onclick="setNotifVolume(0.4)" class=" w3-tiny  w3-padding w3-round-large w3-hover-opacity w3-border" style="user-select: none;"  >Medium</span> <span id="vol-high" onclick="setNotifVolume(0.6)" class=" w3-tiny  w3-padding w3-round-large w3-hover-opacity " style="user-select: none;" >High</span>
+          </span> 
+      </div>
+      <div class="w3-row">
+          <label class="switch w3-right w3-margin">
+            <input id="dark-switch" type="checkbox" onchange="saveDarkChange(this)">
+            <span class="slider round"></span>
+          </label>
+          <p class="w3-left">Enable Dark Mode</p>
+      </div>
+      <div class="w3-row">
+        <span class="w3-right w3-small"> <button id="gid0" onclick="location.replace('#0');location.reload();" id="gid0" class="w3-margin w3-center w3-button w3-round">0</button><button id="gid1"  onclick="location.replace('#1');location.reload();" class="w3-margin w3-center w3-button w3-round">1</button><button onclick="location.replace('#2');location.reload();" id="gid2" class="w3-margin w3-center w3-button w3-round">2</button> </span> 
+        <p class="w3-left">Set Google User <i onclick="alert(this.title)" class="fa fa-question-circle" title="Set your College Google Account Position to avoid selecting the account on every click! (Works on Desktop Only)"></i></p>  
+      </div>
+    </div>
+  </div>
+
+<footer class="w3-row-padding w3-container w3-padding-top w3-margin-top w3-center">
+  <div class="w3-small">
+    <p>Developed by <span class="w3-small w3-text-blue w3-round"> LVZ </span>| Powered by <span class="w3-small w3-text-orange w3-round">Google API </span>| Hosted by <span class="w3-small w3-text-purple w3-round">Github</span></p>
+    <p>Backed by <a class="w3-text-green w3-small" href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+  </div>
+</footer>
+</body>
+</html>
